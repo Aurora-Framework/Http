@@ -1,6 +1,6 @@
 {
    "name": "aurora-framework/http",
-   "description": "This is a simple and easy abstraction over top an HTTP response.",
+   "description": "Simple and easy abstraction over top an HTTP response.",
    "license": "MIT",
    "authors": [
       {
