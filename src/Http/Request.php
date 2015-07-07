@@ -31,6 +31,7 @@ class Request implements RequestInterface
    const GET = "get";
    const POST = "post";
    const PARAMETERS = "parameters";
+
    const PUT = "post";
    const OPTIONS = "post";
    const DELETE = "post";
@@ -42,7 +43,7 @@ class Request implements RequestInterface
       array $cookies,
       array $files,
       array $server
-    ) {
+   ) {
       $this->parameters = array_merge($get, $post);
       $this->cookies = $cookies;
       $this->files = $files;
@@ -53,7 +54,7 @@ class Request implements RequestInterface
 
    public static function fromGlobals()
    {
-      return new static($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
+      return new self($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
    }
 
    public function getFile($key, $default = null)
@@ -135,6 +136,16 @@ class Request implements RequestInterface
    public function isMethod($method = null)
    {
       return ($this->server('REQUEST_METHOD') === $method);
+   }
+
+   public function isPost()
+   {
+      return $this->server('REQUEST_METHOD') === "POST";
+   }
+
+   public function isGet()
+   {
+      return $this->server('REQUEST_METHOD') === "GET";
    }
 
    public function getQueryString()
