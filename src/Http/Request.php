@@ -164,7 +164,7 @@ class Request implements RequestInterface
 
   public function getParsedBody($key = null, $default = null)
   {
-      if (!isset($this->parsedBody) && $this->isMethod("POST")) {
+      if (!isset($this->parsedBody) && $this->isPost()) {
         $parsedBody = array();
         switch($this->server('CONTENT-TYPE')) {
             case 'application/x-www-form-urlencoded':
@@ -180,7 +180,7 @@ class Request implements RequestInterface
       }
 
       return ($key === null) ? $this->parsedBody : (isset($this->parsedBody[$key]) ? $this->parsedBody[$key] : $default);
-  }
+   }
 
    public function username()
    {
@@ -229,18 +229,12 @@ class Request implements RequestInterface
 
    public function blacklisted($where = "parameters", $backlist)
    {
-      $blacklist = (array) $blacklist;
-      $tmp = $this->$where;
-
-      return array_intersect_key($tmp, array_flip($backlist));
+      return array_intersect_key($this->$where, array_flip((array) $blacklist));
    }
 
    public function whitelisted($where = "parameters", $whitelist)
    {
-      $whitelist = (array) $whitelist;
-      $tmp = $this->$where;
-
-      return array_diff($tmp, $whitelist);
+      return array_diff($this->$where,  (array) $whitelist);
    }
 
 }
