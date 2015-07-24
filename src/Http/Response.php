@@ -1,20 +1,5 @@
 <?php
 
-/**
- * Aurora - Framework
- *
- * Aurora is fast, simple, extensible Framework
- *
- * @category   Framework
- * @package    Aurora
- * @author     VeeeneX <veeenex@gmail.com>
- * @copyright  2015 Caroon
- * @license    MIT
- * @version    0.1.2
- * @link       http://caroon.com/Aurora
- *
- */
-
 namespace Aurora\Http;
 
 class Response implements ResponseInterface
@@ -99,6 +84,8 @@ class Response implements ResponseInterface
 
       $this->statusCode = (int) $statusCode;
       $this->statusText = (string) $statusText;
+
+      return $this;
    }
 
    public function getStatusCode()
@@ -118,6 +105,8 @@ class Response implements ResponseInterface
    public function addHeader($name, $value)
    {
       $this->headers[$name][] = (string) $value;
+
+      return $this;
    }
 
    public function setHeader($name, $value)
@@ -125,6 +114,8 @@ class Response implements ResponseInterface
       $this->headers[$name] = [
          (string) $value,
       ];
+
+      return $this;
    }
 
    public function getHeaders()
@@ -148,11 +139,15 @@ class Response implements ResponseInterface
       $Cookie->setValue('');
       $Cookie->setMaxAge(-1);
       $this->cookies[$Cookie->getName()] = $Cookie;
+
+      return $this;
    }
 
    public function setContent($content)
    {
       $this->content = (string) $content;
+
+      return $this;
    }
 
    public function getContent()
@@ -166,6 +161,8 @@ class Response implements ResponseInterface
       $this->setStatusCode($statusCode);
 
       if (!$continue) $this->send();
+
+      return $this;
    }
 
    private function getRequestLineHeaders()
@@ -190,7 +187,7 @@ class Response implements ResponseInterface
 
       foreach ($this->headers as $name => $values) {
          foreach ($values as $value) {
-            $headers[] = "$name: $value";
+            $headers[] = "${name}: ${value}";
          }
       }
 

@@ -1,20 +1,5 @@
 <?php
 
-/**
- * Aurora - Framework
- *
- * Aurora is fast, simple, extensible Framework
- *
- * @category   Framework
- * @package    Aurora
- * @author     VeeeneX <veeenex@gmail.com>
- * @copyright  2015 Caroon
- * @license    MIT
- * @version    1.0
- * @link       http://caroon.com/Aurora
- *
- */
-
 namespace Aurora\Http;
 
 class Request implements RequestInterface
@@ -59,12 +44,12 @@ class Request implements RequestInterface
 
    public function getFile($key, $default = null)
    {
-      return (isset($this->files[$key])) ? $this->files[$key] : (($default !== null) ? $default : null);
+      return (isset($this->files[$key])) ? $this->files[$key] : $default;
    }
 
    public function getCookie($key, $default = null)
    {
-      return (isset($this->cookies[$key])) ? $this->cookies[$key] : (($default !== null) ? $default : null);
+      return (isset($this->cookies[$key])) ? $this->cookies[$key] : $default;
    }
 
    public function getCookies()
@@ -80,7 +65,7 @@ class Request implements RequestInterface
    public function getParameter($where = Request::PARAMETERS, $key, $default = null)
    {
       $tmp = $this->$where;
-      return (isset($tmp[$key])) ? $tmp[$key] : (($default !== null) ? $default : null);
+      return (isset($tmp[$key])) ? $tmp[$key] : $default;
    }
 
    public function getFiles()
@@ -133,7 +118,7 @@ class Request implements RequestInterface
       return (isset($this->server["HTTP_X_REQUESTED_WITH"]) && $this->server["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest") ? true : false;
    }
 
-   public function isMethod($method = null)
+   public function isMethod($method = "POST")
    {
       return ($this->server('REQUEST_METHOD') === $method);
    }
@@ -194,47 +179,47 @@ class Request implements RequestInterface
 
    public function get($key, $default = null)
    {
-      return (isset($this->get[$key])) ? $this->get[$key] : (($default !== null) ? $default : null);
+      return (isset($this->get[$key])) ? $this->get[$key] : $default;
    }
 
    public function post($key, $default = null)
    {
-      return (isset($this->post[$key])) ? $this->post[$key] : (($default !== null) ? $default : null);
+      return (isset($this->post[$key])) ? $this->post[$key] : $default;
    }
 
    public function put($key, $default = null)
    {
-      return (isset($this->post[$key])) ? $this->post[$key] : (($default !== null) ? $default : null);
+      return (isset($this->post[$key])) ? $this->post[$key] : $default;
    }
 
    public function patch($key, $default = null)
    {
-      return (isset($this->post[$key])) ? $this->post[$key] : (($default !== null) ? $default : null);
+      return (isset($this->post[$key])) ? $this->post[$key] : $default;
    }
 
    public function delete($key, $default = null)
    {
-      return (isset($this->post[$key])) ? $this->post[$key] : (($default !== null) ? $default : null);
+      return (isset($this->post[$key])) ? $this->post[$key] : $default;
    }
 
    public function options($key, $default = null)
    {
-      return (isset($this->post[$key])) ? $this->post[$key] : (($default !== null) ? $default : null);
+      return (isset($this->post[$key])) ? $this->post[$key] : $default;
    }
 
    public function server($key, $default = null)
    {
-      return (isset($this->server[$key])) ? $this->server[$key] : (($default !== null) ? $default : null);
+      return (isset($this->server[$key])) ? $this->server[$key] : $default;
    }
 
-   public function blacklisted($where = "parameters", $backlist)
+   public function blacklisted($where = Request::PARAMETERS, $backlist)
    {
       return array_intersect_key($this->$where, array_flip((array) $blacklist));
    }
 
-   public function whitelisted($where = "parameters", $whitelist)
+   public function whitelisted($where = Request::PARAMETERS, $whitelist)
    {
-      return array_diff($this->$where,  (array) $whitelist);
+      return array_diff($this->$where, (array) $whitelist);
    }
 
 }

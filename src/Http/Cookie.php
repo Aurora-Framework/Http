@@ -1,20 +1,5 @@
 <?php
 
-/**
- * Aurora - Framework
- *
- * Aurora is fast, simple, extensible Framework
- *
- * @category   Framework
- * @package    Aurora
- * @author     VeeeneX <veeenex@gmail.com>
- * @copyright  2015 Caroon
- * @license    MIT
- * @version    0.1.2
- * @link       http://caroon.com/Aurora
- *
- */
-
 namespace Aurora\Http;
 
 class Cookie implements CookieInterface
@@ -27,10 +12,31 @@ class Cookie implements CookieInterface
    private $secure;
    private $httpOnly;
 
-   public function __construct($name, $value)
+   public function __construct($domain = null, $path = "/", $maxAge = 0, $secure = false, $httpOnly = true)
+   {
+      $this->domain = (string) $domain;
+      $this->path = (string) $path;
+      $this->maxAge = $maxAge;
+      $this->secure = (bool) $secure;
+      $this->httpOnly = (bool) $httpOnly;
+   }
+
+   public function setName($name = "")
    {
       $this->name = (string) $name;
-      $this->value = (string) $value;
+
+      return $this;
+   }
+
+   public function setValue($value = null)
+   {
+      if (is_array($value) || is_object($value)) {
+         $this->value = serialize($value);
+      } else {
+         $this->value = $value;
+      }
+
+      return $this;
    }
 
    /**
@@ -44,17 +50,6 @@ class Cookie implements CookieInterface
    }
 
    /**
-    * Sets the cookie value.
-    *
-    * @param  string $value
-    * @return void
-    */
-   public function setValue($value)
-   {
-      $this->value = (string) $value;
-   }
-
-   /**
     * Sets the cookie max age in seconds.
     *
     * @param  integer $seconds
@@ -63,6 +58,8 @@ class Cookie implements CookieInterface
    public function setMaxAge($seconds)
    {
       $this->maxAge = (int) $seconds;
+
+      return $this;
    }
 
    /**
@@ -74,6 +71,8 @@ class Cookie implements CookieInterface
    public function setDomain($domain)
    {
       $this->domain = (string) $domain;
+
+      return $this;
    }
 
    /**
@@ -85,6 +84,8 @@ class Cookie implements CookieInterface
    public function setPath($path)
    {
       $this->path = (string) $path;
+
+      return $this;
    }
 
    /**
@@ -96,6 +97,8 @@ class Cookie implements CookieInterface
    public function setSecure($secure)
    {
       $this->secure = (bool) $secure;
+
+      return $this;
    }
 
    /**
@@ -107,6 +110,8 @@ class Cookie implements CookieInterface
    public function setHttpOnly($httpOnly)
    {
       $this->httpOnly = (bool) $httpOnly;
+
+      return $this;
    }
 
    /**
