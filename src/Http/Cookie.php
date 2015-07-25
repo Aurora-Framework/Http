@@ -34,7 +34,7 @@ class Cookie implements CookieInterface
       if ($this->raw) {
          $this->value = $value;
       } else {
-         $this->value = serialize($$value);
+         $this->value = serialize($value);
       }
 
       return $this;
