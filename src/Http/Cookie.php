@@ -30,13 +30,22 @@ class Cookie implements CookieInterface
 
    public function setValue($value = null)
    {
-      if (is_array($value) || is_object($value)) {
-         $this->value = serialize($value);
-      } else {
+      if ($this->raw) {
          $this->value = $value;
+      } else {
+         $this->value = serialize($$value);
       }
 
       return $this;
+   }
+
+   public function getValue()
+   {
+      if ($this->raw) {
+         return $this->value;
+      } else {
+         return unserialize($this->value);
+      }
    }
 
    /**
