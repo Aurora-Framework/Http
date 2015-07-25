@@ -12,7 +12,7 @@ class Cookie implements CookieInterface
    public $secure;
    public $httpOnly;
    public $raw = true;
-   
+
    public function __construct($domain = null, $path = "/", $expire = 0, $secure = false, $httpOnly = true)
    {
       $this->domain = (string) $domain;
@@ -43,9 +43,9 @@ class Cookie implements CookieInterface
    public function getValue()
    {
       if ($this->raw) {
-         return $this->value;
+         return (string) $this->value;
       } else {
-         return unserialize($this->value);
+         return (string) unserialize($this->value);
       }
    }
 
