@@ -11,7 +11,8 @@ class Cookie implements CookieInterface
    public $expire;
    public $secure;
    public $httpOnly;
-
+   public $raw = true;
+   
    public function __construct($domain = null, $path = "/", $expire = 0, $secure = false, $httpOnly = true)
    {
       $this->domain = (string) $domain;
