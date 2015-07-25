@@ -27,6 +27,6 @@ interface RequestInterface
    public function username();
    public function password();
    public function get($key, $default = null);
-   public function blacklisted($where = "parameters", $backlist);
-   public function whitelisted($where = "parameters", $whitelist);
+   public function blacklisted($where = Request::PARAMETERS, $backlist);
+   public function whitelisted($where = Request::PARAMETERS, $whitelist);
 }

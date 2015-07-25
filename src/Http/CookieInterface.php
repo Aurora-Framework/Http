@@ -11,5 +11,4 @@ interface CookieInterface
    public function setPath($path);
    public function setSecure($secure);
    public function setHttpOnly($httpOnly);
-   public function getHeaderString();
 }

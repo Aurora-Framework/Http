@@ -8,15 +8,15 @@ class Cookie implements CookieInterface
    public $value;
    public $domain;
    public $path;
-   public $maxAge;
+   public $expire;
    public $secure;
    public $httpOnly;
 
-   public function __construct($domain = null, $path = "/", $maxAge = 0, $secure = false, $httpOnly = true)
+   public function __construct($domain = null, $path = "/", $expire = 0, $secure = false, $httpOnly = true)
    {
       $this->domain = (string) $domain;
       $this->path = (string) $path;
-      $this->maxAge = $maxAge;
+      $this->expire = (int) $expire;
       $this->secure = (bool) $secure;
       $this->httpOnly = (bool) $httpOnly;
    }
@@ -112,72 +112,5 @@ class Cookie implements CookieInterface
       $this->httpOnly = (bool) $httpOnly;
 
       return $this;
-   }
-
-   /**
-    * Returns the cookie HTTP header string.
-    *
-    * @return string
-    */
-   public function getHeaderString()
-   {
-      $parts = [
-         $this->name . '=' . rawurlencode($this->value),
-         $this->getMaxAgeString(),
-         $this->getExpiresString(),
-         $this->getDomainString(),
-         $this->getPathString(),
-         $this->getSecureString(),
-         $this->getHttpOnlyString(),
-      ];
-
-      $filteredParts = array_filter($parts);
-
-      return implode('; ', $filteredParts);
-   }
-
-   private function getMaxAgeString()
-   {
-      if ($this->maxAge !== null) {
-         return 'Max-Age='. $this->maxAge;
-      }
-   }
-
-   private function getExpiresString()
-   {
-      if ($this->maxAge !== null) {
-         return 'expires=' . gmdate(
-            "D, d-M-Y H:i:s",
-            time() + $this->maxAge
-         ) . ' GMT';
-      }
-   }
-
-   private function getDomainString()
-   {
-      if ($this->domain) {
-         return "domain=$this->domain";
-      }
-   }
-
-   private function getPathString()
-   {
-      if ($this->path) {
-         return "path=$this->path";
-      }
-   }
-
-   private function getSecureString()
-   {
-      if ($this->secure) {
-         return 'secure';
-      }
-   }
-
-   private function getHttpOnlyString()
-   {
-      if ($this->httpOnly) {
-         return 'HttpOnly';
-      }
    }
 }

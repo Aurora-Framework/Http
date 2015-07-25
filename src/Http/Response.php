@@ -122,8 +122,7 @@ class Response implements ResponseInterface
    {
       $headers = array_merge(
          $this->getRequestLineHeaders(),
-         $this->getStandardHeaders(),
-         $this->getCookieHeaders()
+         $this->getStandardHeaders()
       );
 
       return $headers;
@@ -194,19 +193,12 @@ class Response implements ResponseInterface
       return $headers;
    }
 
-   private function getCookieHeaders()
-   {
-      $headers = [];
-
-      foreach ($this->cookies as $cookie) {
-         $headers[] = 'Set-Cookie: ' . $cookie->getHeaderString();
-      }
-
-      return $headers;
-   }
 
    public function send()
    {
+      foreach ($this->cookies as $Cookie) {
+         setcookie($Cookie->name, $Cookie->value, $Cookie->expire, $Cookie->path, $Cookie->domain, $Cookie->secure, $Cookie->httpOnly);
+      }
       foreach ($this->getHeaders() as $header) {
          header($header, false);
       }
