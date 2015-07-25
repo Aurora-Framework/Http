@@ -25,12 +25,12 @@ class Request implements RequestInterface
    public function __construct(
       array $get,
       array $post,
-      array $cookies,
+      array $cookie,
       array $files,
       array $server
    ) {
       $this->parameters = array_merge($get, $post);
-      $this->cookies = $cookies;
+      $this->cookie = $cookie;
       $this->files = $files;
       $this->server = $server;
       $this->get = $get;
@@ -49,12 +49,12 @@ class Request implements RequestInterface
 
    public function getCookie($key, $default = null)
    {
-      return (isset($this->cookies[$key])) ? $this->cookies[$key] : $default;
+      return (isset($this->cookie[$key])) ? $this->cookie[$key] : $default;
    }
 
    public function getCookies()
    {
-      return $this->cookies;
+      return $this->cookie;
    }
 
    public function getParameters()
