@@ -43,9 +43,9 @@ class Cookie implements CookieInterface
    public function getValue()
    {
       if ($this->raw) {
-         return (string) $this->value;
+         return $this->value;
       } else {
-         return (string) unserialize($this->value);
+         return unserialize($this->value);
       }
    }
 
