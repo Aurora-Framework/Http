@@ -4,13 +4,13 @@ namespace Aurora\Http;
 
 class Cookie implements CookieInterface
 {
-   private $name;
-   private $value;
-   private $domain;
-   private $path;
-   private $maxAge;
-   private $secure;
-   private $httpOnly;
+   public $name;
+   public $value;
+   public $domain;
+   public $path;
+   public $maxAge;
+   public $secure;
+   public $httpOnly;
 
    public function __construct($domain = null, $path = "/", $maxAge = 0, $secure = false, $httpOnly = true)
    {
