@@ -197,7 +197,15 @@ class Response implements ResponseInterface
    public function send()
    {
       foreach ($this->cookies as $Cookie) {
-         setcookie($Cookie->name, $Cookie->value, $Cookie->expire, $Cookie->path, $Cookie->domain, $Cookie->secure, $Cookie->httpOnly);
+         setcookie(
+            $Cookie->name,
+            $Cookie->value,
+            $Cookie->expire,
+            $Cookie->path,
+            $Cookie->domain,
+            $Cookie->secure,
+            $Cookie->httpOnly
+         );
       }
       foreach ($this->getHeaders() as $header) {
          header($header, false);
