@@ -4,14 +4,14 @@ namespace Aurora\Http;
 
 class Response implements ResponseInterface
 {
-   private $version = '1.1';
-   private $statusCode = 200;
-   private $statusText = 'OK';
-   private $headers = [];
-   private $cookies = [];
-   private $content;
+   protected $version = '1.1';
+   protected $statusCode = 200;
+   protected $statusText = 'OK';
+   protected $headers = [];
+   protected $cookies = [];
+   public $content;
 
-   private $statusTexts = [
+   protected $statusTexts = [
       100 => 'Continue',
       101 => 'Switching Protocols',
       102 => 'Processing',
